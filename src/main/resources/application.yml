@@ -4,7 +4,7 @@ spring:
     url: jdbc:sqlserver://LAPTOP-D0ANQNSC;databaseName=Rentier
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     username: kjaniszewski
-    password: <yourpassword>
+    password: yourpassword
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate.ddl-auto: update
