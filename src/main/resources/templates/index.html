@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rentier</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link th:href="@{/css/index.css}" rel="stylesheet">
+
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron home-jumbo">
+        <div class="container text-center text-grey jumbo-container">
+            <h1 class="display-3"></h1>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="jumbotron home-text">
+        <div class="container text-center text-grey jumbo-container">
+            <!--<img src="/images/rentier.jpg" alt="rentier" />-->
+            <h1 class="display-3">Rentier online</h1>
+            <p>Application to manage the bill settlements with your tenants</p>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="jumbotron">
+        <div class="container text-center">
+        <a class="button button-blue" href="./locations/show">Locations</button>
+        <a class="button button-blue" href="./tenants/show">Tenants</a>
+        <a class="button button-blue" href="./contracts/show">Contracts</a>
+        <a class="button button-blue" href="./bills/show">Bills</a>
+        <a class="button button-blue" href="./payments/show">Payments</a>
+        </div>
+    </div>
+<div>
+</body>
+</html>

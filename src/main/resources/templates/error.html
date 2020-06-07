@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Error!</title>
+    </head>
+<body>
+<h1>Ups... Something went wrong! Error returned:</h1>
+<h2 style="color:red;" th:text="${ErrorCode + ' - ' +ErrorMessage}"></h2>
+<h3>Our Engineers are on it...</h3>
+<a href="/">Go Home</a>
+</body>
+</html>

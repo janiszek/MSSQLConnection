@@ -1,0 +1,24 @@
+# Datasource
+spring:
+  datasource:
+    url: jdbc:sqlserver://LAPTOP-D0ANQNSC;databaseName=Rentier
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    username: kjaniszewski
+    password: <yourpassword>
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate.ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServer2012Dialect
+        format_sql: true
+  security:
+    user:
+      name: sa
+      password: sa
+
+#useful in the application to be able to debug
+logging:
+  level:
+    root: info

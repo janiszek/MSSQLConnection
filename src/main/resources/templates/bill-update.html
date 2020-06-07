@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Edit the bill</title>
+    </head>
+<body>
+<!--<span th:text=${Bills}>...</span><br>-->
+<h2 th:text="${Bills.id != null} ? 'Edit a bill...' : 'Add a bill...'">Caption</h2>
+<p></p>
+<form method="post" th:action="@{./bill-update-submit}" th:object="${Bills}">
+    <table>
+        <tr>
+            <td>Location: </td>
+            <td><input name="location" disabled th:field="*{location.shortName}"></td>
+        <tr>
+            <td>Date: </td>
+            <td><input name="date" th:field="*{date}"> </td>
+        </tr>
+        <tr>
+            <td>Amount: </td>
+            <td> <input name="amount" th:field="*{amount}"> </td>
+        </tr>
+        <tr>
+            <!--<tr>
+                <td>Status: </td>
+                <td><input name="status" th:field="*{status}"></td>
+            </tr>-->
+            <td>Status: </td>
+            <td><select name="status" th:field="*{status}">
+                <option th:value="'FORECAST'" th:text="FORECAST">FORECAST</option>
+                <option th:value="'REAL'" th:text="REAL">REAL</option>
+                <option th:value="'PAID'" th:text="PAID">PAID</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Bill Group:</td>
+            <td><input name="billgroup" disabled th:field="*{billGroup.description}"></td>
+                <input type="hidden" name="id" th:field="*{id}"></td>
+        </tr>
+        <tr><br></tr>
+        <tr>
+            <!--<td colspan="2">-->
+            <td> <input type="submit"></td>
+            <td> <input type="button" name="cancel" value="Cancel" onClick="window.location='./show';" /></td>
+    </table>
+</form>
+</body>
+</html>

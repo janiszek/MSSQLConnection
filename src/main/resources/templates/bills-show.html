@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Bill list</title>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+              crossorigin="anonymous">
+        <link th:href="@{/css/bills-show.css}" rel="stylesheet">
+    </head>
+
+<body>
+<!-- native JSON format to be used by the application - returns of the collection of Bill objects
+<span th:text=${Bills}>...</span><br>
+<span th:text=${BillGroups}>...</span><br>
+<span th:text=${BillGroupSelectedDescription}>...</span><br>
+-->
+
+
+<p align="center">
+<h2>List of bills...</h2></p>
+<br>
+
+<div class="blue-section">
+
+    <!-- display the filter with list of locations -->
+    <div class="container">
+        <div class="filter">
+            <form method="post" th:action="@{./show}">
+                <div class="column">
+                    <label for="location">Location: </label>
+                    <select class="slt-item" id="location" name="location">
+                        <option th:each="record: ${Locations}" th:selected="(${record.shortName} == ${LocationSelected.shortName})"  th:text="${record.shortName}">location name</option>
+                    </select>
+                </div>
+                <div class="column">
+                    <label for="billgroup">Bill Group: </label>
+                    <select class="slt-item" id="billgroup" name="billgroup">
+                        <option th:selected="(${BillGroupSelected} == '')"  th:text="'<All>'">bill group name</option>
+                        <option th:each="record: ${BillGroups}" th:selected="(${record.description} == ${BillGroupSelectedDescription})"  th:text="${record.description}">bill group name</option>
+                    </select>
+                </div>
+
+                <div class="button-box">
+                    <button type="submit" class="button button-violet">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- display the photo for given location -->
+    <div class="container">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="shadow-lg p-3 mb-5 bg-black rounded">
+                <table border="0"><tr><td width="200">
+                    <img th:src="@{'/images/'+${LocationSelected.photoRef}}" class="img-fluid" width="200"  />  </td><td width="15"> </td>
+                    <td>
+                        <h3 class="text-center" th:text="${LocationSelected.shortName}">?</h3>
+                        <p class="text-justify" th:text="${LocationSelected.address}">?</p>
+                        <p class="text-justify" th:text="${'Current tenant: ' + Tenant.shortName}">?</p>
+                        <p class="text-justify" th:text="${TenantDetails.firstName+' '+TenantDetails.lastName+' '+TenantDetails.email}">?</p>
+                        <p class="text-justify" th:text="${'Contract from: ' + Contract.dateFrom + ' till: ' + Contract.dateTo}">?</p>
+                    </td> </tr> </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table class="table table-bordered table-hover" id="tableBills">
+    <tr>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Bill Group</th>
+        <th>Update</th>
+        <th>Delete?</th>
+    </tr>
+    <tr th:each="record: ${Bills}">
+        <td align="center" th:text="${record.date}">Date</td>
+        <td align="right" th:text="${#numbers.formatDecimal(record.amount,1,'POINT',2,'COMMA')+' PLN'}">Amount</td>
+        <td align="center" th:text="${record.status}">Status</td>
+        <td th:text="${record.billGroup.description}">Bill Group</td>
+        <td>
+            <!--<form method="post" th:action="@{/bills/bill-update(id=${record.id})}">-->
+            <form method="post" th:action="@{/bills/bill-update}">
+                <input type="hidden" name="id" th:value="${record.id}">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-trash-o fa-lg"></i>Update</button>
+            </form>
+        </td>
+        <td>
+            <!--<form method="post" th:action="@{/bills/bill-delete(id=${record.id})}">-->
+            <form method="post" th:action="@{/bills/bill-delete}" th:object="${record}">
+                <input type="hidden" name="id" th:value="${record.id}">
+                <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i>Delete</button>
+            </form>
+        <!-- for implementation of OnClick on table row
+        <td type="hidden" th:text="${record.id}">id</td> -->
+    </tr>
+</table>
+
+<br>
+<form method="post" th:action="@{/bills/bill-add}">
+        <button type="submit" class="btn btn-info"><i class="fa fa-trash-o fa-lg"></i>Add New</button>
+</form>
+
+<script type="text/javascript" th:src="@{/js/bills-show.js}" ></script>
+
+</body>
+</html>
