@@ -10,6 +10,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -56,30 +58,51 @@ public class ApplicationReadyComponent {
 
     private void InitializeLocations(){
         System.out.println("Adding 4 locations...");
-        Location location1 = new Location("Kromera", "Wroclaw, ul. Kromera 53/17","kromera.jpg");
+        /*Location location1 = new Location("Kromera", "Wroclaw, ul. Kromera 53/17","kromera.jpg");
         Location location2 = new Location("Stronska", "Wroclaw, ul. Stronska 2B/28","stronska.jpg");
         Location location3 = new Location("Kurkowa", "Wroclaw, ul. Kurkowa 14/98","kurkowa.jpg");
         Location location4 = new Location( "Zakladowa", "Wroclaw, ul. Zakladowa 28/7","zakladowa.jpg");
         locationRepo.save(location1);
         locationRepo.save(location2);
         locationRepo.save(location3);
-        locationRepo.save(location4);
+        locationRepo.save(location4);*/
+
+        //stream version applied
+        List<Location> locationList = Arrays.asList(
+            new Location("Kromera", "Wroclaw, ul. Kromera 53/17","kromera.jpg"),
+            new Location("Stronska", "Wroclaw, ul. Stronska 2B/28","stronska.jpg"),
+            new Location("Kurkowa", "Wroclaw, ul. Kurkowa 14/98","kurkowa.jpg"),
+            new Location( "Zakladowa", "Wroclaw, ul. Zakladowa 28/7","zakladowa.jpg")
+        );
+        //shorter  way of description with ::
+        locationList.stream().forEach(locationRepo::save);
     }
 
     private void InitializeTenants(){
         System.out.println("Adding 3 tenants...");
-        Tenant tenant1 = new Tenant("Forys Emil i Kaja"/*,"Kaja i Emil Foryś","CHK 494835; 90061404671"*/);
+        /*Tenant tenant1 = new Tenant("Forys Emil i Kaja");
         TenantDetails tenDet1 = new TenantDetails("Emil","Forys","123456789","ABC123456","Kozia Wolka 31, Polska","forys@gmail.com", "123 456", "To tylko fakeowy tenant");
         tenant1.setDetails(tenDet1);
-        Tenant tenant2 = new Tenant("Cieslak Rafal i Elżbieta"/*,"Elżbieta Wańko i Rafał Cieślak","CHF 392019; 95050912177"*/);
+        Tenant tenant2 = new Tenant("Cieslak Rafal i Elżbieta");
         TenantDetails tenDet2 = new TenantDetails("Rafal","Cieslak","1111111111","ABC123456","Bidbulowo 12, Polska","cieslak@gmail.com", "456 789", "To tylko fakeowy tenant");
         tenant2.setDetails(tenDet2);
-        Tenant tenant3 = new Tenant("Cienciala Szymon"/*,"Szymon Cienciała","CCN 714533; 81051714610"*/);
+        Tenant tenant3 = new Tenant("Cienciala Szymon");
         TenantDetails tenDet3 = new TenantDetails("Szymon","Cienciala","987654321","ABC123456","Nijako 63/2a, Polska","cienciala@gmail.com", "789 123", "To tylko fakeowy tenant");
         tenant3.setDetails(tenDet3);
         tenantRepo.save(tenant1);
         tenantRepo.save(tenant2);
-        tenantRepo.save(tenant3);
+        tenantRepo.save(tenant3);*/
+
+        //stream version applied
+        TenantDetails tenDet1 = new TenantDetails("Emil","Forys","123456789","ABC123456","Kozia Wolka 31, Polska","forys@gmail.com", "123 456", "To tylko fakeowy tenant");
+        TenantDetails tenDet2 = new TenantDetails("Rafal","Cieslak","1111111111","ABC123456","Bidbulowo 12, Polska","cieslak@gmail.com", "456 789", "To tylko fakeowy tenant");
+        TenantDetails tenDet3 = new TenantDetails("Szymon","Cienciala","987654321","ABC123456","Nijako 63/2a, Polska","cienciala@gmail.com", "789 123", "To tylko fakeowy tenant");
+        List<Tenant> tenantList = Arrays.asList(
+                new Tenant("Forys Emil i Kaja", tenDet1),
+                new Tenant("Cieslak Rafal i Elżbieta", tenDet2),
+                new Tenant("Cienciala Szymon", tenDet3)
+        );
+        tenantList.stream().forEach(tenantRepo::save);
     }
 
     private void InitializeContracts(){
@@ -153,7 +176,7 @@ public class ApplicationReadyComponent {
 
     private void InitializeBillGroups(){
         System.out.println("Adding bill groups...");
-        BillGroup group1 = new BillGroup("Community fees", true);
+        /*BillGroup group1 = new BillGroup("Community fees", true);
         BillGroup group2 = new BillGroup("Internet", true);
         BillGroup group3 = new BillGroup( "electricity", true);
         BillGroup group4 = new BillGroup("insurance", true);
@@ -167,7 +190,20 @@ public class ApplicationReadyComponent {
         billGroupRepo.save(group4);
         billGroupRepo.save(group5);
         billGroupRepo.save(group6);
-        billGroupRepo.save(group7);
+        billGroupRepo.save(group7);*/
+
+        //stream version applied
+        List<BillGroup> billGroupList = Arrays.asList(
+                new BillGroup("Community fees", true),
+                new BillGroup("Internet", true),
+                new BillGroup( "electricity", true),
+                new BillGroup("insurance", true),
+                new BillGroup("meters settlement", false),
+                new BillGroup("power settlement", false),
+                new BillGroup("other", false)
+        );
+        //longer way of description
+        billGroupList.stream().forEach(group -> billGroupRepo.save(group));
     }
 
     private void InitializeBills(){
